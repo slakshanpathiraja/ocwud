@@ -1,3 +1,8 @@
+<?php
+require_once("connection.php");
+$query_find = "select * from category ";
+$query_find_run = mysqli_query($connection,$query_find);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -110,12 +115,18 @@
                <div class="navbar-collapse collapse">
                    <ul class="nav navbar-nav">
                        <li class="active"><a href="index.php">Home</a></li>
-                       <li><a href="#">Store</a></li>
-                       <li><a href="#">Category</a></li>
-                       <li><a href="#">Category</a></li>
-                       <li><a href="#">Category</a></li>
-                       <li><a href="#">Category</a></li>
-                       <li><a href="#">Category</a></li>
+                       <li><a href="#">SALE!</a></li>
+                         <?php 
+                            if(mysqli_num_rows($query_find_run)>0){
+                                while($row =mysqli_fetch_assoc($query_find_run)){
+                        ?>
+                        <li><a href="<?php echo $row['link']; ?>"><?php echo $row['name']; ?></a></li>       
+                        <?php
+                                }
+                            }else{
+                                echo "no recoded founded";
+                            }
+                        ?> 
                        <li><a href="#">About Us</a></li>
                        <li><a href="#">Contact Us</a></li>
                    </ul>
